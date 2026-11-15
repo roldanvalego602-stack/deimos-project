@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Modo EVA · Exploración marciana</title>
+  <link rel="stylesheet" href="./src/styles/eva.css" />
+</head>
+<body>
+  <div id="game"></div>
+
+  <div id="stats" class="panel">
+    <h1>Modo EVA</h1>
+    <p class="muted">Exploración libre · campaña procedural</p>
+    <p class="muted" id="data-source"></p>
+    <p class="muted" id="safety-link"></p>
+    <p><a class="back" href="./index.html">← Volver al mapa</a></p>
+
+    <div class="bar" id="bar-o2">
+      <div class="row"><span class="name">Oxígeno</span><span class="val"></span></div>
+      <div class="track"><div class="fill"></div></div>
+    </div>
+    <div class="bar" id="bar-stamina">
+      <div class="row"><span class="name">Estamina</span><span class="val"></span></div>
+      <div class="track"><div class="fill"></div></div>
+    </div>
+    <div class="bar" id="bar-temp">
+      <div class="row"><span class="name">Temperatura</span><span class="val"></span></div>
+      <div class="track"><div class="fill"></div></div>
+    </div>
+
+    <div class="bar" id="bar-rad">
+      <div class="row"><span class="name">Radiación (dosis)</span><span class="val"></span></div>
+      <div class="track"><div class="fill"></div></div>
+    </div>
+
+    <section id="inventory" aria-live="polite">
+      <div class="inventory-heading"><strong>Inventario</strong><span id="inventory-count">0/12</span></div>
+      <p id="inventory-items">Hielo: 0 · Regolito: 0 · Metal: 0</p>
+    </section>
+    <section id="rover-panel" aria-live="polite">
+      <div class="inventory-heading"><strong>Flota de rovers</strong><span id="rover-count">0</span></div>
+      <p id="rover-info">Selecciona un modelo y despliega desde una base.</p>
+    </section>
+    <section id="base-panel" aria-live="polite">
+      <div class="inventory-heading"><strong>Red de bases</strong><span id="base-count">EVA</span></div>
+      <p id="base-info">Bases desplegadas: 1</p>
+    </section>
+
+    <div class="readout">
+      <span id="r-time"></span>
+      <span id="r-ambient"></span>
+      <span id="r-slope"></span>
+      <span id="r-rad"></span>
+      <span id="r-route"></span>
+      <span id="r-goal"></span>
+    </div>
+  </div>
+
+  <div id="controls" class="panel">
+    <p class="mission-conditions">Condiciones operativas estándar · Recursos, energía, oxígeno y radiación según parámetros de misión.</p>
+    <button id="btn-restart" type="button">Reiniciar</button>
+    <button id="btn-ui-settings" type="button" aria-expanded="false">Ajustes de interfaz</button>
+    <div id="ui-settings" hidden>
+      <label>Opacidad de paneles <output id="ui-opacity-value">88%</output>
+        <input id="ui-opacity" type="range" min="35" max="100" value="88" />
+      </label>
+      <label>Escala de interfaz <output id="ui-scale-value">100%</output>
+        <input id="ui-scale" type="range" min="80" max="125" value="100" />
+      </label>
+      <label class="toggle"><input id="ui-stats-visible" type="checkbox" checked /> Mostrar panel de estado</label>
+      <label class="toggle"><input id="ui-controls-visible" type="checkbox" checked /> Mostrar controles</label>
+    </div>
+    <p class="muted">WASD/flechas: mover/conducir · E: muestra/recolectar/guardar/descargar · M: colocar waypoint (clic en mapa) · clic en marcador: eliminar waypoint · Supr/Retroceso: eliminar el más cercano · P: ruta al waypoint · Q: retirar · B: construir puesto · T: elegir módulo de base (cada módulo tiene una función) · Y: instalar módulo junto a una base · C/H: fabricar/activar kit RAD · 1/2: elegir rover · V: desplegar · F: entrar/salir · Rueda: zoom · Espacio: pausa · R: reiniciar misión y borrar waypoints manuales · N: nueva campaña.</p>
+  </div>
+
+  <button id="ui-restore" type="button" aria-label="Mostrar controles de interfaz" hidden>UI</button>
+  <div id="dust" aria-hidden="true"></div>
+  <div id="event-banner" role="alert" hidden></div>
+  <div id="interaction" aria-live="polite"></div>
+  <div id="toast" hidden></div>
+
+  <div id="end" hidden>
+    <div class="card">
+      <h2 id="end-title"></h2>
+      <p id="end-text"></p>
+      <p id="end-score" hidden></p>
+      <ul id="end-science"></ul>
+      <button id="btn-again" type="button">Jugar de nuevo</button>
+    </div>
+  </div>
+
+  <div id="error" hidden></div>
+
+  <script src="./vendor/phaser.min.js"></script>
+  <script type="module" src="./src/eva/main.js"></script>
+</body>
+</html>
