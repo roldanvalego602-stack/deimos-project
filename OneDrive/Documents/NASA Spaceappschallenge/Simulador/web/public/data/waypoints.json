@@ -1,0 +1,47 @@
+[
+  {
+    "id": "wp1",
+    "order": 1,
+    "name": "Punto de salida",
+    "lat": 18.39,
+    "lon": 77.58,
+    "objective": "Inicio de la EVA. Revisión de equipo y comunicaciones.",
+    "photo": null
+  },
+  {
+    "id": "wp2",
+    "order": 2,
+    "name": "Afloramiento rocoso (mock)",
+    "lat": 18.4,
+    "lon": 77.59,
+    "objective": "Toma de muestras para buscar señales de agua antigua.",
+    "photo": null
+  },
+  {
+    "id": "wp4",
+    "order": 3,
+    "name": "Cráter pequeño (mock)",
+    "lat": 18.404,
+    "lon": 77.596,
+    "objective": "Observar estratos expuestos en la pared del cráter para reconstruir la historia geológica.",
+    "photo": null
+  },
+  {
+    "id": "wp5",
+    "order": 4,
+    "name": "Depósito de regolito fino (mock)",
+    "lat": 18.407,
+    "lon": 77.602,
+    "objective": "Medir granulometría y recolectar regolito para analizar su composición.",
+    "photo": null
+  },
+  {
+    "id": "wp3",
+    "order": 5,
+    "name": "Punto de retorno",
+    "lat": 18.411,
+    "lon": 77.608,
+    "objective": "Fin del tramo de exploración y regreso al hábitat.",
+    "photo": null
+  }
+]

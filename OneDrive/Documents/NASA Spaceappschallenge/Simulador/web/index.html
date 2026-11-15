@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Mapa Marciano · Guía de Supervivencia Interplanetaria</title>
+  <link rel="stylesheet" href="./vendor/leaflet/leaflet.css" />
+  <link rel="stylesheet" href="./src/styles/main.css" />
+</head>
+<body>
+  <div id="map"></div>
+
+  <aside id="hud">
+    <header>
+      <h1>Mapa Marciano</h1>
+      <p class="sub">Ruta de EVA · datos de prueba</p>
+    </header>
+
+    <section>
+      <h2>Estado de la misión</h2>
+      <div id="go-nogo"></div>
+      <ul id="reasons"></ul>
+    </section>
+
+    <section>
+      <h2>Panel de seguridad</h2>
+      <div id="safety-panel"></div>
+    </section>
+
+    <section>
+      <h2>Perfil de elevación</h2>
+      <canvas id="elevation-chart" height="150"></canvas>
+      <p id="route-summary" class="muted"></p>
+    </section>
+
+    <section>
+      <h2>Capas</h2>
+      <div id="layer-panel"></div>
+    </section>
+
+    <section>
+      <h2>Modo EVA</h2>
+      <p class="muted">Recorre esta ruta como astronauta: oxígeno, temperatura, radiación y tormentas.</p>
+      <p class="actions">
+        <a class="btn" href="./eva.html">Iniciar EVA</a>
+        <a class="btn" href="./eva.html?terreno=dem">Iniciar con DEM</a>
+      </p>
+    </section>
+
+    <footer class="muted">
+      Fuentes y supuestos: ver README y <code>docs/</code>.
+    </footer>
+  </aside>
+
+  <div id="error" hidden></div>
+
+  <script src="./vendor/leaflet/leaflet.js"></script>
+  <script src="./vendor/chart.umd.js"></script>
+  <script type="module" src="./src/main.js"></script>
+</body>
+</html>
