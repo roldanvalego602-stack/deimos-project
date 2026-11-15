@@ -1,0 +1,270 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+
+    <title>Deimos Project | Mars Explorer</title>
+
+    <script>window.CESIUM_BASE_URL = "./vendor/cesium/";</script>
+    <script src="vendor/cesium/Cesium.js"></script>
+
+    <link rel="stylesheet"
+          href="vendor/cesium/Widgets/widgets.css">
+
+    <link rel="stylesheet" href="css/map.css">
+    <link rel="stylesheet" href="css/mission.css">
+</head>
+<body>
+
+    <div id="cesiumContainer"></div>
+    <div id="voice-crosshair" aria-hidden="true"></div>
+
+    <header class="mission-header">
+        <span>DEIMOS PROJECT</span>
+        <h1>MARS EXPLORER</h1>
+        <p>Interplanetary Mapping System</p>
+    </header>
+
+<aside id="region-panel" class="region-panel hidden">
+
+    <div class="panel-header">
+        <span id="region-category">SCIENTIFIC ZONE</span>
+        <button id="close-panel">×</button>
+    </div>
+
+    <h2 id="region-name"></h2>
+
+    <p id="region-description"></p>
+
+    <hr>
+
+    <h3>COORDINATES</h3>
+
+    <div class="region-coordinates">
+        <div>
+            <span>LATITUDE</span>
+            <strong id="region-lat"></strong>
+        </div>
+        <div>
+            <span>LONGITUDE</span>
+            <strong id="region-lon"></strong>
+        </div>
+    </div>
+
+    <hr>
+
+    <h3>SCIENTIFIC DATA</h3>
+
+    <div id="region-datasets">
+        Scientific datasets pending integration.
+    </div>
+
+    <button id="plan-mission" disabled>
+        PLAN EXPEDITION
+    </button>
+
+</aside>
+
+<div id="voice-control" class="voice-control">
+
+    <button id="voice-button" aria-label="Activate microphone">
+        🎙
+    </button>
+
+    <div class="voice-info">
+        <span>Project VOICE CONTROL</span>
+
+        <p id="voice-status" role="status">
+            Ready for voice commands
+        </p>
+
+        <small id="voice-transcript">
+            Try saying: Project, explore Gale
+        </small>
+
+        <select id="voice-language" aria-label="Recognition language">
+            <option value="es-MX">Español</option>
+            <option value="en-US">English</option>
+        </select>
+    </div>
+
+</div>
+
+<section id="science-layers" class="science-layers">
+
+    <div class="layers-header">
+    <h3>SCIENTIFIC LAYERS</h3>
+
+    <button id="toggle-layers"
+            title="Minimize layers"
+            aria-expanded="true">
+        −
+    </button>
+</div>
+
+    <span class="science-subtitle">
+        NASA MISSION DATA
+    </span>
+
+    <button data-layer="base" class="layer-button active">
+        Natural Surface
+    </button>
+
+    <button data-layer="topography" class="layer-button">
+        Topography — MOLA
+    </button>
+
+    <button data-layer="optical" class="layer-button">
+        Optical — Viking
+    </button>
+<button data-layer="ctx" class="layer-button">
+    High Resolution — CTX
+</button>
+    <button data-layer="radiation" class="layer-button">
+        Radiation — RAD
+    </button>
+
+    <label for="layer-opacity">Layer opacity</label>
+
+    <input id="layer-opacity" type="range"
+           min="0" max="100" value="100">
+
+    <p id="layer-status" role="status">
+        Natural surface enabled
+    </p>
+
+    <div id="science-information"></div>
+
+</section>
+
+<button id="open-mission" class="mission-open">
+    EXPEDITION PLANNER
+</button>
+
+<section id="mission-panel" class="mission-planner" hidden>
+
+    <div class="mission-panel-header">
+        <span>DEIMOS / MISSION SYSTEMS</span>
+        <button id="close-mission">×</button>
+    </div>
+
+    <h2>Expedition Planner</h2>
+
+    <p id="mission-status">
+        Select Start Mapping to create a route.
+    </p>
+
+    <button id="start-route">Start Mapping</button>
+    <button id="undo-point">Undo Waypoint</button>
+    <button id="clear-route">Clear Route</button>
+
+    <h3>MISSION PARAMETERS</h3>
+
+    <label>Scientific objective</label>
+    <textarea id="mission-objective"
+              placeholder="Describe your scientific objective">
+    </textarea>
+
+    <label>Walking speed (km/h) — assumption</label>
+    <input id="mission-speed" type="number"
+           min="0.1" max="10" step="0.1" value="2">
+
+    <label>Scientific activities (minutes)</label>
+    <input id="mission-science-time" type="number"
+           min="0" value="60">
+
+    <label class="mission-checkbox">
+        <input id="mission-return" type="checkbox" checked>
+        Return to habitat
+    </label>
+
+    <label class="mission-checkbox">
+        <input id="mission-gale" type="checkbox">
+        Use historical Gale Crater conditions
+    </label>
+
+    <h3>MISSION ANALYSIS</h3>
+
+    <div class="mission-metrics">
+
+        <div class="mission-metric">
+            <small>WAYPOINTS</small>
+            <strong id="mission-points">0</strong>
+        </div>
+
+        <div class="mission-metric">
+            <small>DISTANCE (km)</small>
+            <strong id="mission-distance">—</strong>
+        </div>
+
+        <div class="mission-metric">
+            <small>DURATION (h)</small>
+            <strong id="mission-duration">—</strong>
+        </div>
+
+        <div class="mission-metric">
+            <small>DOSE ESTIMATE (mSv)</small>
+            <strong id="mission-radiation">—</strong>
+        </div>
+
+        <div class="mission-metric">
+            <small>REFERENCE TEMP. (°C)</small>
+            <strong id="mission-temperature">—</strong>
+        </div>
+
+        <div class="mission-metric">
+            <small>MAX. SAMPLED SLOPE</small>
+            <strong id="mission-slope">—</strong>
+        </div>
+
+    </div>
+
+    <h3>TERRAIN ANALYSIS</h3>
+
+    <button id="analyze-terrain">
+        Analyze Terrain
+    </button>
+
+    <canvas id="elevation-chart"
+            width="300" height="130"></canvas>
+
+    <p id="terrain-report">
+        Terrain not evaluated.
+    </p>
+
+    <h3>WAYPOINT COORDINATES</h3>
+
+    <div id="mission-waypoints"></div>
+
+    <div class="mission-warning">
+        Experimental planning system. Historical data
+        and simplified mission estimates.
+        Not a certified safety assessment.
+    </div>
+
+    <a href="https://science.nasa.gov/resource/radiation-measurements-on-mars/"
+       target="_blank" rel="noopener">
+        NASA Radiation Observations
+    </a>
+
+</section>
+
+
+<script src="js/locations.js"></script>
+<script src="js/voice.js"></script>
+<script src="js/layers.js"></script>
+<script src="js/nasa-data.js"></script>
+<script src="js/terrain.js"></script>
+<script src="js/mission.js"></script>
+<script src="js/risk.js"></script>
+<script src="js/comparison.js"></script>
+<script src="js/radiation.js"></script>
+<script src="js/landing.js"></script>
+<script src="js/operations.js"></script>
+<script src="js/dashboard.js"></script>
+<script src="js/ion-config.js"></script>
+<script src="js/map.js"></script>
+</body>
+</html>

@@ -1,0 +1,24 @@
+{
+  "type": "FeatureCollection",
+  "features": [
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Ruta EVA (mock)",
+        "mock": true,
+        "max_slope_deg": 12
+      },
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [77.5800, 18.3900, -2610],
+          [77.5850, 18.3950, -2605],
+          [77.5900, 18.4000, -2598],
+          [77.5960, 18.4040, -2590],
+          [77.6020, 18.4070, -2596],
+          [77.6080, 18.4110, -2604]
+        ]
+      }
+    }
+  ]
+}

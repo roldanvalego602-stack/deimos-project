@@ -1,0 +1,376 @@
+<!doctype html>
+<html lang="en" data-dmx-theme="dark">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="theme-color" content="#064E57" />
+  <meta name="description" content="DEIMOS PROJECT — Mars exploration and mission planning platform by ORBITRON V2 for NASA Space Apps Challenge 2026." />
+  <title>Mission Control · DEIMOS PROJECT</title>
+
+  <!-- Aplica el tema antes de pintar para evitar flash -->
+  <script>
+    (function () {
+      try {
+        var saved = localStorage.getItem("deimos-theme");
+        var theme = saved || "dark"; // Fuerza oscuro por defecto
+        document.documentElement.setAttribute("data-dmx-theme", theme);
+      } catch (e) { /* localStorage bloqueado */ }
+    })();
+  </script>
+
+  <link rel="stylesheet" href="./css/styles.css" />
+</head>
+<body class="dmx-body" data-dmx-nav-open="false">
+
+  <svg width="0" height="0" style="position:absolute" aria-hidden="true" focusable="false">
+    <symbol id="dmx-i-control" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><circle cx="12" cy="12" r="4"/><path d="M12 3v3M12 18v3M3 12h3M18 12h3"/></symbol>
+    <symbol id="dmx-i-globe" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M3 12h18M12 3a14 14 0 0 1 0 18M12 3a14 14 0 0 0 0 18"/></symbol>
+    <symbol id="dmx-i-pulse" viewBox="0 0 24 24"><path d="M3 12h4l2-6 4 12 2-6h6"/></symbol>
+    <symbol id="dmx-i-archive" viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="5" rx="1"/><path d="M5 9v10a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1V9M10 13h4"/></symbol>
+    <symbol id="dmx-i-info" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 11v5M12 8h.01"/></symbol>
+    <symbol id="dmx-i-arrow" viewBox="0 0 24 24"><path d="M5 12h14M13 6l6 6-6 6"/></symbol>
+    <symbol id="dmx-i-menu" viewBox="0 0 24 24"><path d="M4 7h16M4 12h16M4 17h16"/></symbol>
+    <symbol id="dmx-i-close" viewBox="0 0 24 24"><path d="M6 6l12 12M18 6 6 18"/></symbol>
+    <symbol id="dmx-i-wind" viewBox="0 0 24 24"><path d="M3 8h11a3 3 0 1 0-3-3M3 16h14a3 3 0 1 1-3 3M3 12h8"/></symbol>
+    <symbol id="dmx-i-bolt" viewBox="0 0 24 24"><path d="M13 3 5 14h6l-1 7 8-11h-6l1-7z"/></symbol>
+    <symbol id="dmx-i-clock" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></symbol>
+    <symbol id="dmx-i-route" viewBox="0 0 24 24"><circle cx="6" cy="19" r="2"/><circle cx="18" cy="5" r="2"/><path d="M8 19h7a3.5 3.5 0 0 0 0-7H9a3.5 3.5 0 0 1 0-7h7"/></symbol>
+    <symbol id="dmx-i-sun" viewBox="0 0 24 24"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M4.93 19.07l1.41-1.41M17.66 6.34l1.41-1.41"/></symbol>
+    <symbol id="dmx-i-moon" viewBox="0 0 24 24"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></symbol>
+  </svg>
+
+  <a class="dmx-skip-link" href="#dmx-main">Skip to content</a>
+
+  <header class="dmx-topbar">
+    <div class="dmx-brand">
+      <img class="dmx-brand__mark" src="./assets/logo.png" alt="DEIMOS Logo" />
+      <span class="dmx-brand__text">
+        <span class="dmx-brand__name">DEIMOS</span>
+        <span class="dmx-brand__sub dmx-mono">Project</span>
+      </span>
+    </div>
+    <div class="dmx-topbar__actions">
+      <button class="dmx-theme-btn dmx-theme-btn--icon" id="dmx-theme-btn-mobile" type="button" aria-pressed="false" aria-label="Switch to light theme">
+        <svg class="dmx-icon dmx-icon--sun" aria-hidden="true"><use href="#dmx-i-sun"/></svg>
+        <svg class="dmx-icon dmx-icon--moon" aria-hidden="true"><use href="#dmx-i-moon"/></svg>
+      </button>
+      <button class="dmx-menu-btn" id="dmx-menu-btn" type="button" aria-controls="dmx-sidebar" aria-expanded="false" aria-label="Open navigation">
+        <svg class="dmx-icon dmx-icon--open" aria-hidden="true"><use href="#dmx-i-menu"/></svg>
+        <svg class="dmx-icon dmx-icon--close" aria-hidden="true"><use href="#dmx-i-close"/></svg>
+      </button>
+    </div>
+  </header>
+
+  <div class="dmx-backdrop" id="dmx-backdrop" aria-hidden="true"></div>
+
+  <div class="dmx-shell">
+    <aside class="dmx-sidebar" id="dmx-sidebar">
+      <div class="dmx-brand">
+        <img class="dmx-brand__mark" src="./assets/logo.png" alt="DEIMOS Logo" />
+        <span class="dmx-brand__text">
+          <span class="dmx-brand__name">DEIMOS</span>
+          <span class="dmx-brand__sub dmx-mono">Project</span>
+        </span>
+      </div>
+
+      <nav class="dmx-nav" aria-label="Main navigation">
+        <span class="dmx-nav__label dmx-mono">Navigation</span>
+        <ul class="dmx-nav__list">
+          <li>
+            <button class="dmx-nav__btn" type="button" data-dmx-nav="mission-control">
+              <svg class="dmx-icon" aria-hidden="true"><use href="#dmx-i-control"/></svg> Mission Control <span class="dmx-nav__code" aria-hidden="true">00</span>
+            </button>
+          </li>
+          <li>
+            <button class="dmx-nav__btn" type="button" data-dmx-nav="mars-explorer" data-dmx-status="pending">
+              <svg class="dmx-icon" aria-hidden="true"><use href="#dmx-i-globe"/></svg> Mars Explorer <span class="dmx-nav__status" aria-hidden="true"></span>
+            </button>
+          </li>
+          <li>
+            <button class="dmx-nav__btn" type="button" data-dmx-nav="survival-simulator" data-dmx-status="pending">
+              <svg class="dmx-icon" aria-hidden="true"><use href="#dmx-i-pulse"/></svg> Survival Simulator <span class="dmx-nav__status" aria-hidden="true"></span>
+            </button>
+          </li>
+          <li>
+            <button class="dmx-nav__btn" type="button" data-dmx-nav="mission-archives" data-dmx-status="pending">
+              <svg class="dmx-icon" aria-hidden="true"><use href="#dmx-i-archive"/></svg> Mission Archives <span class="dmx-nav__status" aria-hidden="true"></span>
+            </button>
+          </li>
+          <li>
+            <button class="dmx-nav__btn" type="button" data-dmx-nav="about-mission">
+              <svg class="dmx-icon" aria-hidden="true"><use href="#dmx-i-info"/></svg> About Mission <span class="dmx-nav__code" aria-hidden="true">04</span>
+            </button>
+          </li>
+        </ul>
+      </nav>
+
+      <div class="dmx-sidebar__footer">
+        <button class="dmx-theme-btn" id="dmx-theme-btn-desktop" type="button" aria-pressed="false" aria-label="Switch to light theme">
+          <svg class="dmx-icon dmx-icon--sun" aria-hidden="true"><use href="#dmx-i-sun"/></svg>
+          <svg class="dmx-icon dmx-icon--moon" aria-hidden="true"><use href="#dmx-i-moon"/></svg>
+          <span class="dmx-theme-btn__label dmx-mono">Theme</span>
+        </button>
+
+        <span class="dmx-mono">Built by</span>
+        <strong>ORBITRON V2</strong>
+        <span class="dmx-mono">NASA Space Apps 2026</span>
+      </div>
+    </aside>
+
+    <main class="dmx-main" id="dmx-main">
+      <div class="dmx-statusbar dmx-mono">
+        <div class="dmx-statusbar__path">
+          <span>Deimos</span> <span aria-hidden="true">/</span>
+          <strong id="dmx-breadcrumb-current" aria-live="polite">Mission Control</strong>
+        </div>
+        <div class="dmx-statusbar__meta">
+          <span class="dmx-live dmx-hide-sm">Interface online</span>
+          <time class="dmx-clock" id="dmx-clock">--:--:-- UTC</time>
+        </div>
+      </div>
+
+      <section class="dmx-view" data-dmx-view="mission-control" aria-labelledby="dmx-title-control">
+        <div class="dmx-hero">
+          <div>
+            <span class="dmx-eyebrow dmx-mono">ORBITRON V2 · NASA Space Apps 2026</span>
+            <h1 class="dmx-hero__title" id="dmx-title-control" tabindex="-1" data-dmx-heading>
+              DEIMOS<span>PROJECT</span>
+            </h1>
+            <p class="dmx-hero__lead">
+              A command center for <strong>exploring Mars and planning missions</strong>. Navigate the planet&apos;s surface,
+              test survival scenarios and study the history of robotic exploration, all from one place.
+            </p>
+            <div class="dmx-actions">
+              <button class="dmx-btn dmx-btn--primary" type="button" data-dmx-nav="mars-explorer">
+                Start exploring <svg class="dmx-icon" aria-hidden="true"><use href="#dmx-i-arrow"/></svg>
+              </button>
+              <button class="dmx-btn dmx-btn--ghost" type="button" data-dmx-nav="about-mission">
+                About the mission
+              </button>
+            </div>
+          </div>
+
+          <div class="dmx-planet" aria-hidden="true">
+            <div class="dmx-planet__ring dmx-planet__ring--b"></div>
+            <div class="dmx-planet__ring dmx-planet__ring--a"></div>
+            <div class="dmx-planet__orbit"></div>
+            <img class="dmx-planet__img" src="./assets/mars.png" alt="Planeta Marte" />
+            <div class="dmx-planet__moon-track">
+              <div class="dmx-planet__moon-spin"><span class="dmx-planet__moon"></span></div>
+            </div>
+            <div class="dmx-planet__label dmx-planet__label--a dmx-mono">Target<strong>Mars</strong></div>
+            <div class="dmx-planet__label dmx-planet__label--b dmx-mono">Moon<strong>Deimos</strong></div>
+          </div>
+        </div>
+
+        <div class="dmx-section-head">
+          <div>
+            <span class="dmx-eyebrow dmx-mono">Modules</span>
+            <h2>Select a mission module</h2>
+          </div>
+          <p>Each module is developed independently and connects here.</p>
+        </div>
+
+        <ul class="dmx-cards">
+          <li>
+            <article class="dmx-panel dmx-card dmx-card--mars">
+              <div class="dmx-card__top">
+                <span class="dmx-card__icon"><svg class="dmx-icon" aria-hidden="true"><use href="#dmx-i-globe"/></svg></span>
+                <span class="dmx-card__code dmx-mono">MOD-01</span>
+              </div>
+              <h3 class="dmx-card__title">Mars Explorer</h3>
+              <p class="dmx-card__text">Interactive map of Mars to navigate regions, landing sites and points of interest on the surface.</p>
+              <div class="dmx-card__foot">
+                <button class="dmx-card__btn" type="button" data-dmx-nav="mars-explorer">Open module <svg class="dmx-icon" aria-hidden="true"><use href="#dmx-i-arrow"/></svg></button>
+                <span class="dmx-tag" data-dmx-module-status="mars-explorer">Pending</span>
+              </div>
+            </article>
+          </li>
+          <li>
+            <article class="dmx-panel dmx-card dmx-card--cyan">
+              <div class="dmx-card__top">
+                <span class="dmx-card__icon"><svg class="dmx-icon" aria-hidden="true"><use href="#dmx-i-pulse"/></svg></span>
+                <span class="dmx-card__code dmx-mono">MOD-02</span>
+              </div>
+              <h3 class="dmx-card__title">Survival Simulator</h3>
+              <p class="dmx-card__text">Interactive EVA survival simulator with exploration, resource gathering, rovers and base construction.</p>
+              <div class="dmx-card__foot">
+                <button class="dmx-card__btn" type="button" data-dmx-nav="survival-simulator">Open module <svg class="dmx-icon" aria-hidden="true"><use href="#dmx-i-arrow"/></svg></button>
+                <span class="dmx-tag" data-dmx-module-status="survival-simulator">Pending</span>
+              </div>
+            </article>
+          </li>
+          <li>
+            <article class="dmx-panel dmx-card dmx-card--mars">
+              <div class="dmx-card__top">
+                <span class="dmx-card__icon"><svg class="dmx-icon" aria-hidden="true"><use href="#dmx-i-archive"/></svg></span>
+                <span class="dmx-card__code dmx-mono">MOD-03</span>
+              </div>
+              <h3 class="dmx-card__title">Mission Archives</h3>
+              <p class="dmx-card__text">Rovers, missions and scientific discoveries: profiles, photographs, locations and historical records.</p>
+              <div class="dmx-card__foot">
+                <button class="dmx-card__btn" type="button" data-dmx-nav="mission-archives">Open module <svg class="dmx-icon" aria-hidden="true"><use href="#dmx-i-arrow"/></svg></button>
+                <span class="dmx-tag" data-dmx-module-status="mission-archives">Pending</span>
+              </div>
+            </article>
+          </li>
+        </ul>
+
+        <dl class="dmx-panel dmx-readout">
+          <div class="dmx-readout__item"><dt class="dmx-mono">Platform</dt><dd>Mission planning</dd></div>
+          <div class="dmx-readout__item"><dt class="dmx-mono">Destination</dt><dd>Mars</dd></div>
+          <div class="dmx-readout__item"><dt class="dmx-mono">Modules</dt><dd>3 awaiting integration</dd></div>
+          <div class="dmx-readout__item"><dt class="dmx-mono">Team</dt><dd>ORBITRON V2</dd></div>
+        </dl>
+      </section>
+
+      <section class="dmx-view" data-dmx-view="mars-explorer" aria-labelledby="dmx-title-explorer" hidden>
+        <header class="dmx-view__header">
+          <span class="dmx-eyebrow dmx-mono">MOD-01 · Mars Explorer</span>
+          <h1 class="dmx-view__title" id="dmx-title-explorer" tabindex="-1" data-dmx-heading>Mars Explorer</h1>
+          <p class="dmx-view__lead">Interactive map of the Martian surface. Explore NASA datasets, plan expeditions and operate PROJECT voice navigation.</p>
+        </header>
+
+        <div class="dmx-panel dmx-panel--hud">
+          <div class="dmx-panel__bar dmx-mono">
+            <span class="dmx-panel__bar-title"><svg class="dmx-icon" aria-hidden="true"><use href="#dmx-i-globe"/></svg> Surface map</span>
+            <span class="dmx-tag" data-dmx-module-status="mars-explorer">Pending integration</span>
+          </div>
+
+          <div class="dmx-mount dmx-mount--map" id="mars-map-container" data-dmx-module="mars-explorer" data-dmx-state="pending">
+            <div class="dmx-empty" data-dmx-placeholder role="status">
+              <span class="dmx-empty__radar" aria-hidden="true"></span>
+              <p class="dmx-empty__title">Mars Explorer module pending integration</p>
+              <p class="dmx-empty__text">The interactive map will render inside this container.</p>
+              <code class="dmx-empty__id dmx-mono">#mars-map-container</code>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section class="dmx-view" data-dmx-view="survival-simulator" aria-labelledby="dmx-title-survival" hidden>
+        <header class="dmx-view__header">
+          <span class="dmx-eyebrow dmx-mono">MOD-02 · Survival Simulator</span>
+          <h1 class="dmx-view__title" id="dmx-title-survival" tabindex="-1" data-dmx-heading>Survival Simulator</h1>
+          <p class="dmx-view__lead">Interactive EVA training: explore Mars, manage resources, deploy rovers and build outposts.</p>
+        </header>
+
+        <div class="dmx-panel dmx-panel--hud">
+          <div class="dmx-panel__bar dmx-mono">
+            <span class="dmx-panel__bar-title"><svg class="dmx-icon" aria-hidden="true"><use href="#dmx-i-pulse"/></svg> Simulation workspace</span>
+            <span class="dmx-tag" data-dmx-module-status="survival-simulator">Pending integration</span>
+          </div>
+          <div class="dmx-mount" id="survival-simulator-container" data-dmx-module="survival-simulator" data-dmx-state="pending">
+            <div class="dmx-empty" data-dmx-placeholder role="status">
+              <span class="dmx-empty__radar" aria-hidden="true"></span>
+              <p class="dmx-empty__title">Survival Simulator module pending integration</p>
+              <p class="dmx-empty__text">Simulation controls and results will render inside this container.</p>
+              <code class="dmx-empty__id dmx-mono">#survival-simulator-container</code>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section class="dmx-view" data-dmx-view="mission-archives" aria-labelledby="dmx-title-archives" hidden>
+        <header class="dmx-view__header">
+          <span class="dmx-eyebrow dmx-mono">MOD-03 · Mission Archives</span>
+          <h1 class="dmx-view__title" id="dmx-title-archives" tabindex="-1" data-dmx-heading>Mission Archives</h1>
+          <p class="dmx-view__lead">Rover profiles, photographs, locations and historical records. Explore the original interactive mission archive.</p>
+        </header>
+
+        <div class="dmx-panel dmx-panel--hud">
+          <div class="dmx-panel__bar dmx-mono">
+            <div class="dmx-tabs" aria-label="Archive sections">
+              <span class="dmx-tab">Interactive mission collection</span>
+            </div>
+            <span class="dmx-tag" data-dmx-module-status="mission-archives">Pending integration</span>
+          </div>
+
+          <div class="dmx-mount dmx-mount--archives" id="mission-archives-container" data-dmx-module="mission-archives" data-dmx-state="pending">
+            <div class="dmx-skeleton-grid" data-dmx-placeholder aria-hidden="true">
+              <div class="dmx-skeleton"><div class="dmx-skeleton__media"></div><span class="dmx-skeleton__label dmx-mono">Rover profile</span><div class="dmx-skeleton__line"></div></div>
+              <div class="dmx-skeleton"><div class="dmx-skeleton__media"></div><span class="dmx-skeleton__label dmx-mono">Photograph</span><div class="dmx-skeleton__line"></div></div>
+              <div class="dmx-skeleton"><div class="dmx-skeleton__media"></div><span class="dmx-skeleton__label dmx-mono">Location</span><div class="dmx-skeleton__line"></div></div>
+              <div class="dmx-skeleton"><div class="dmx-skeleton__media"></div><span class="dmx-skeleton__label dmx-mono">Historical record</span><div class="dmx-skeleton__line"></div></div>
+            </div>
+            <div class="dmx-overlay-empty" data-dmx-placeholder>
+              <div class="dmx-empty" role="status">
+                <span class="dmx-empty__radar" aria-hidden="true"></span>
+                <p class="dmx-empty__title">Mission Archives module pending integration</p>
+                <p class="dmx-empty__text">Rover cards, photographs, locations and history will render inside this container.</p>
+                <code class="dmx-empty__id dmx-mono">#mission-archives-container</code>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section class="dmx-view" data-dmx-view="about-mission" aria-labelledby="dmx-title-about" hidden>
+        <header class="dmx-view__header">
+          <span class="dmx-eyebrow dmx-mono">04 · About Mission</span>
+          <h1 class="dmx-view__title" id="dmx-title-about" tabindex="-1" data-dmx-heading>About DEIMOS PROJECT</h1>
+          <p class="dmx-view__lead">DEIMOS PROJECT is a Mars exploration and mission planning platform created by ORBITRON V2 for the NASA Space Apps Challenge 2026.</p>
+        </header>
+
+        <div class="dmx-about">
+          <article class="dmx-panel dmx-about__block">
+            <span class="dmx-eyebrow dmx-mono">Project</span>
+            <h2>Description</h2>
+            <p>The platform brings together three complementary tools in a single command center: a surface explorer, a survival and resource simulator, and an archive of robotic exploration.</p>
+          </article>
+          <article class="dmx-panel dmx-about__block">
+            <span class="dmx-eyebrow dmx-mono">Goals</span>
+            <h2>Objectives</h2>
+            <ul class="dmx-list">
+              <li><span><strong>Explore</strong> the Martian surface through an interactive map.</span></li>
+              <li><span><strong>Plan</strong> the resources a crew would need to survive on Mars.</span></li>
+              <li><span><strong>Learn</strong> from the rovers and missions that came before.</span></li>
+            </ul>
+          </article>
+          <article class="dmx-panel dmx-about__block dmx-about__block--wide">
+            <span class="dmx-eyebrow dmx-mono">Stack</span>
+            <h2>Technologies</h2>
+            <ul class="dmx-chips"><li>HTML5</li><li>CSS3</li><li>JavaScript</li><li>No backend</li></ul>
+          </article>
+          <article class="dmx-panel dmx-about__block dmx-about__block--wide">
+            <span class="dmx-eyebrow dmx-mono">Credits</span>
+            <h2>Team ORBITRON V2</h2>
+            <ul class="dmx-credits">
+              <li><span class="dmx-mono">Interface</span><strong>Mission Control</strong></li>
+              <li><span class="dmx-mono">MOD-01</span><strong>Mars Explorer</strong></li>
+              <li><span class="dmx-mono">MOD-02</span><strong>Survival Simulator</strong></li>
+              <li><span class="dmx-mono">MOD-03</span><strong>Mission Archives</strong></li>
+            </ul>
+          </article>
+        </div>
+
+        <section class="dmx-info-general">
+          <h2>Project information</h2>
+          <p>DEIMOS PROJECT is a modular web platform using CesiumJS for planetary visualization. Its architecture separates a stable navigation shell from three independently developed modules that mount into fixed containers.</p>
+        </section>
+
+        <section class="dmx-creditos-fuentes">
+          <h2>Credits &amp; scientific sources</h2>
+          <ul>
+            <li>NASA Mars Exploration Program — mars.nasa.gov</li>
+            <li>USGS Astrogeology Science Center — astrogeology.usgs.gov</li>
+          </ul>
+          <ul>
+            <li>Interface &amp; shell — ORBITRON V2</li>
+            <li>MOD-01 Mars Explorer — team member</li>
+          </ul>
+        </section>
+      </section>
+
+      <footer class="dmx-footer dmx-mono">
+        <span>DEIMOS PROJECT · ORBITRON V2</span>
+        <span>NASA Space Apps Challenge <span id="dmx-year">2026</span></span>
+      </footer>
+    </main>
+  </div>
+
+  <script src="./js/theme.js"></script>
+  <script src="./js/navigation.js"></script>
+  <script src="./js/integration.js"></script>
+</body>
+</html>
