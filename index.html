@@ -1,0 +1,40 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="theme-color" content="#12060a" />
+  <title>Archive</title>
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <div class="scene" id="scene">
+    <header class="topbar">
+      <svg class="logo" viewBox="0 0 40 40" aria-hidden="true">
+        <ellipse cx="20" cy="20" rx="17" ry="7" transform="rotate(-25 20 20)" fill="none" stroke="#e3a06f" stroke-width="1" opacity=".6"/>
+        <ellipse cx="20" cy="20" rx="11" ry="8.5" transform="rotate(-20 20 20)" fill="#a79b91"/>
+        <circle cx="16" cy="18" r="2.4" fill="#7c726a"/>
+        <circle cx="24" cy="22" r="1.8" fill="#7c726a"/>
+        <circle cx="21" cy="15.5" r="1.2" fill="#8d837a"/>
+      </svg>
+      <h1>ARCHIVE <span>PROJECT</span></h1>
+      <small>Misiones a Marte</small>
+    </header>
+
+    <div class="worlds" id="worlds"></div>
+
+    <section class="story" id="story" hidden role="dialog" aria-labelledby="storyTitle">
+      <header class="story-head">
+        <h2 id="storyTitle"></h2>
+        <div class="tabs" role="tablist" aria-label="Secciones">
+          <button class="tab on" id="tabH" role="tab" data-tab="h" aria-selected="true">Historia</button>
+          <button class="tab" id="tabD" role="tab" data-tab="d" aria-selected="false">Datos</button>
+        </div>
+        <button class="close" id="storyClose" aria-label="Cerrar">&times;</button>
+      </header>
+      <div class="story-body" id="storyBody"></div>
+    </section>
+  </div>
+  <script src="app.js"></script>
+</body>
+</html>
