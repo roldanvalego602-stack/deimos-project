@@ -1,0 +1,841 @@
+
+/* DEIMOS EXPEDITION PLANNER */
+
+.mission-open {
+    position: absolute;
+    top: 110px;
+    right: 24px;
+    z-index: 35;
+
+    background: #0B1726;
+    color: #22D3EE;
+    border: 1px solid #22D3EE;
+    border-radius: 6px;
+
+    padding: 13px 18px;
+    font-size: 11px;
+    letter-spacing: 2px;
+    cursor: pointer;
+}
+
+.mission-planner {
+    position: absolute;
+    top: 110px;
+    right: 24px;
+    z-index: 40;
+
+    width: 340px;
+    max-width: calc(100vw - 48px);
+    max-height: 75vh;
+    overflow-y: auto;
+    box-sizing: border-box;
+
+    padding: 20px;
+    background: rgba(8, 13, 24, 0.96);
+    backdrop-filter: blur(16px);
+
+    color: #F5F7FA;
+    border: 1px solid #334155;
+    border-radius: 12px;
+}
+
+.mission-planner[hidden] {
+    display: none;
+}
+
+.mission-panel-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.mission-panel-header span {
+    font-size: 9px;
+    letter-spacing: 2px;
+    color: #22D3EE;
+}
+
+.mission-planner h2 {
+    font-size: 24px;
+}
+
+.mission-planner h3 {
+    font-size: 11px;
+    letter-spacing: 2px;
+    color: #94A3B8;
+    margin-top: 24px;
+}
+
+.mission-planner button {
+    padding: 10px;
+    margin-bottom: 7px;
+
+    border: 1px solid #334155;
+    background: #111B2E;
+    border-radius: 6px;
+    color: #22D3EE;
+    cursor: pointer;
+}
+
+.mission-planner button:hover,
+.mission-planner button.active {
+    border-color: #22D3EE;
+    background: #12313E;
+}
+
+.mission-planner label {
+    display: block;
+    margin: 12px 0 6px;
+    font-size: 12px;
+    color: #94A3B8;
+}
+
+.mission-planner input[type="number"],
+.mission-planner textarea {
+    box-sizing: border-box;
+    width: 100%;
+    padding: 10px;
+
+    color: white;
+    background: #111B2E;
+
+    border: 1px solid #334155;
+    border-radius: 6px;
+}
+
+.mission-planner textarea {
+    min-height: 70px;
+    resize: vertical;
+}
+
+.mission-checkbox {
+    display: flex !important;
+    align-items: center;
+    gap: 8px;
+}
+
+.mission-metrics {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 8px;
+}
+
+.mission-metric {
+    min-width: 0;
+    padding: 12px;
+
+    background: #111B2E;
+    border: 1px solid #334155;
+    border-radius: 8px;
+}
+
+.mission-metric small {
+    display: block;
+    font-size: 9px;
+    color: #94A3B8;
+}
+
+.mission-metric strong {
+    display: block;
+    font-family: monospace;
+    font-size: 23px;
+    margin-top: 8px;
+    color: #22D3EE;
+}
+
+#elevation-chart {
+    display: block;
+    width: 100%;
+    background: #111B2E;
+    border-radius: 6px;
+    margin-top: 12px;
+}
+
+#mission-status,
+#terrain-report,
+#mission-waypoints {
+    font-size: 12px;
+    color: #94A3B8;
+    line-height: 1.7;
+}
+
+.mission-warning {
+    padding: 12px;
+    margin: 20px 0;
+
+    background: rgba(230, 126, 75, 0.1);
+    border-left: 3px solid #E97845;
+
+    color: #E4B99E;
+    font-size: 11px;
+    line-height: 1.6;
+}
+
+.mission-planner a {
+    color: #22D3EE;
+    font-size: 11px;
+}
+
+
+/* DEIMOS RISK ASSESSMENT */
+
+.risk-assessment {
+    margin-top: 30px;
+    padding-top: 15px;
+    border-top: 1px solid #334155;
+}
+
+.risk-card {
+    padding: 14px;
+    margin: 10px 0;
+
+    background: #111B2E;
+    border: 1px solid #334155;
+    border-left: 3px solid #64748B;
+    border-radius: 6px;
+}
+
+.risk-card small {
+    display: block;
+    font-size: 10px;
+    letter-spacing: 1px;
+    color: #94A3B8;
+}
+
+.risk-card strong {
+    display: block;
+    margin: 8px 0;
+
+    font-family: monospace;
+    font-size: 21px;
+}
+
+.risk-card p {
+    font-size: 11px;
+    line-height: 1.6;
+    color: #CBD5E1;
+}
+
+.risk-card span {
+    font-size: 9px;
+    color: #94A3B8;
+}
+
+.risk-card.nominal {
+    border-left-color: #34D399;
+    color: #34D399;
+}
+
+.risk-card.caution {
+    border-left-color: #FBBF24;
+    color: #FBBF24;
+}
+
+.risk-card.danger {
+    border-left-color: #F87171;
+    color: #F87171;
+}
+
+.risk-card.unknown {
+    border-left-color: #64748B;
+    color: #94A3B8;
+}
+
+.risk-note {
+    font-size: 10px;
+    line-height: 1.6;
+    color: #94A3B8;
+}
+
+#risk-summary {
+    margin-top: 18px;
+    padding: 14px;
+
+    background: #111B2E;
+    border: 1px solid #334155;
+    border-radius: 8px;
+}
+
+#risk-summary p {
+    font-size: 12px;
+    color: #CBD5E1;
+}
+
+#risk-summary strong {
+    color: #22D3EE;
+}
+
+#risk-summary small {
+    font-size: 10px;
+    color: #E9AB54;
+}
+
+/* DEIMOS ROUTE COMPARISON */
+
+.route-comparison {
+    margin-top: 30px;
+    padding-top: 15px;
+    border-top: 1px solid #334155;
+}
+
+.route-comparison select {
+    width: 100%;
+    padding: 10px;
+    box-sizing: border-box;
+
+    color: #F5F7FA;
+    background: #111B2E;
+
+    border: 1px solid #334155;
+    border-radius: 6px;
+}
+
+.comparison-card {
+    padding: 14px;
+    margin-top: 12px;
+
+    background: #111B2E;
+    border: 1px solid #334155;
+    border-left: 4px solid #22D3EE;
+    border-radius: 8px;
+}
+
+.comparison-card-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.comparison-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 14px;
+    margin-top: 12px;
+}
+
+.comparison-grid small {
+    display: block;
+    color: #94A3B8;
+    font-size: 9px;
+}
+
+.comparison-grid strong {
+    display: block;
+    margin-top: 6px;
+
+    color: #F5F7FA;
+    font-family: monospace;
+    font-size: 16px;
+}
+
+.comparison-note,
+#comparison-status {
+    font-size: 11px;
+    line-height: 1.6;
+    color: #94A3B8;
+}
+
+.comparison-preferred {
+    font-size: 11px;
+    color: #34D399;
+}
+
+#comparison-recommendation {
+    background: #111B2E;
+    border: 1px solid #334155;
+    border-radius: 8px;
+
+    margin-top: 18px;
+    padding: 15px;
+
+    font-size: 12px;
+    color: #CBD5E1;
+}
+
+#comparison-recommendation strong {
+    font-size: 10px;
+    letter-spacing: 1px;
+    color: #22D3EE;
+}
+
+#comparison-recommendation h2 {
+    color: #22D3EE;
+    font-size: 23px;
+}
+
+/* NASA RADIATION ENGINE */
+
+.rad-engine {
+    margin-top: 30px;
+    padding-top: 15px;
+    border-top: 1px solid #334155;
+}
+
+.rad-engine select {
+    width: 100%;
+    box-sizing: border-box;
+    padding: 10px;
+
+    background: #111B2E;
+    color: #F5F7FA;
+
+    border: 1px solid #334155;
+    border-radius: 6px;
+    margin-bottom: 12px;
+}
+
+.rad-source {
+    color: #F28C45;
+    font-size: 10px;
+    letter-spacing: 2px;
+}
+
+#rad-chart {
+    display: block;
+    width: 100%;
+    background: #111B2E;
+    border-radius: 8px;
+}
+
+#rad-engine-status,
+#rad-observations {
+    color: #94A3B8;
+    font-size: 11px;
+    line-height: 1.6;
+}
+
+.rad-dose-result {
+    padding: 18px;
+    margin-top: 15px;
+
+    background: #111B2E;
+    border: 1px solid #F28C45;
+    border-radius: 8px;
+}
+
+.rad-dose-result small {
+    display: block;
+    color: #94A3B8;
+    font-size: 10px;
+    letter-spacing: 1px;
+}
+
+.rad-dose-result strong {
+    display: block;
+    margin: 8px 0;
+
+    color: #F28C45;
+    font-family: monospace;
+    font-size: 32px;
+}
+
+.rad-dose-result span {
+    color: #94A3B8;
+    font-size: 12px;
+}
+
+/* DEIMOS MISSION INTELLIGENCE DASHBOARD */
+
+.mission-planner {
+    width: 440px;
+    max-height: 82vh;
+    scrollbar-width: thin;
+    scrollbar-color: #334155 #080D18;
+}
+
+#mission-tabs {
+    position: sticky;
+    top: -20px;
+    z-index: 5;
+
+    display: grid;
+    grid-template-columns: repeat(5, minmax(0, 1fr));
+    gap: 5px;
+
+    padding: 12px 0;
+
+    background: #080D18;
+    border-bottom: 1px solid #334155;
+}
+
+#mission-tabs button {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+
+    min-width: 0;
+    padding: 10px 3px;
+    margin: 0;
+    gap: 6px;
+
+    background: #111B2E;
+    border: 1px solid #263348;
+    color: #94A3B8;
+}
+
+#mission-tabs button span {
+    font-size: 21px;
+}
+
+#mission-tabs button small {
+    font-size: 9px;
+}
+
+#mission-tabs button.active {
+    color: #22D3EE;
+    border-color: #22D3EE;
+    background: rgba(34, 211, 238, 0.1);
+}
+
+#mission-tabs button:hover {
+    color: #22D3EE;
+    border-color: #22D3EE;
+}
+
+.mission-tab-page {
+    padding-top: 10px;
+    animation: mission-page-enter 0.2s ease;
+}
+
+.mission-tab-page[hidden] {
+    display: none !important;
+}
+
+@keyframes mission-page-enter {
+    from {
+        opacity: 0;
+        transform: translateY(5px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+
+/* SCIENTIFIC CARDS */
+
+.mission-metric {
+    transition: border-color 0.2s;
+    padding: 16px;
+}
+
+.mission-metric:hover {
+    border-color: #22D3EE;
+}
+
+.mission-metric strong {
+    font-size: 26px;
+    overflow-wrap: anywhere;
+}
+
+.rad-engine,
+.risk-assessment,
+.route-comparison {
+    margin-top: 0;
+    padding-top: 0;
+    border-top: none;
+}
+
+.rad-engine .mission-metric strong {
+    color: #F28C45;
+}
+
+.rad-engine .mission-metric:hover {
+    border-color: #F28C45;
+}
+
+
+/* INTERACTIVE SCIENTIFIC GRAPHS */
+
+.interactive-chart {
+    position: relative;
+    width: 100%;
+
+    background: #111B2E;
+    border: 1px solid #334155;
+    border-radius: 8px;
+}
+
+.interactive-chart canvas {
+    display: block;
+    width: 100%;
+    cursor: crosshair;
+}
+
+.chart-tooltip {
+    position: absolute;
+
+    padding: 9px 12px;
+
+    background: #080D18;
+    border: 1px solid #F28C45;
+    border-radius: 6px;
+
+    pointer-events: none;
+
+    box-shadow: 0 4px 20px #0008;
+}
+
+.chart-tooltip small {
+    display: block;
+    font-size: 10px;
+    color: #94A3B8;
+}
+
+.chart-tooltip strong {
+    display: block;
+    margin-top: 4px;
+    font-size: 13px;
+    color: #F28C45;
+}
+
+.chart-inspector {
+    padding: 10px;
+
+    font-family: monospace;
+    font-size: 10px;
+    line-height: 1.6;
+
+    color: #94A3B8;
+}
+
+
+/* RESPONSIVE INTERFACE */
+
+@media (max-width: 600px) {
+
+    .mission-planner {
+        width: calc(100vw - 24px);
+        right: 12px;
+        max-height: 75vh;
+    }
+
+    #mission-tabs button small {
+        font-size: 8px;
+    }
+}
+
+
+/* DEIMOS LANDING CONTROL */
+
+.landing-assessment {
+    margin-top: 24px;
+    padding-top: 15px;
+    border-top: 1px solid #334155;
+}
+
+.landing-source {
+    color: #E97845;
+    font-size: 10px;
+    letter-spacing: 2px;
+}
+
+.landing-countdown {
+    text-align: center;
+    padding: 24px 10px;
+    background: #111B2E;
+    border: 1px solid #334155;
+    border-radius: 10px;
+}
+
+.landing-countdown small {
+    color: #94A3B8;
+    letter-spacing: 2px;
+    font-size: 10px;
+}
+
+.landing-countdown strong {
+    display: block;
+    font-family: monospace;
+    font-size: 56px;
+    color: #22D3EE;
+    margin: 12px 0;
+}
+
+#landing-timeline {
+    width: 100%;
+    margin: 18px 0;
+    accent-color: #22D3EE;
+}
+
+.landing-actions {
+    display: flex;
+    gap: 5px;
+    flex-wrap: wrap;
+}
+
+.landing-step {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 12px 8px;
+    border-bottom: 1px solid #243144;
+    color: #64748B;
+    font-size: 11px;
+}
+
+.landing-step.completed {
+    color: #34D399;
+}
+
+.landing-note,
+#landing-site-report {
+    color: #94A3B8;
+    font-size: 12px;
+    line-height: 1.7;
+}
+
+
+/* DEIMOS ADVANCED MISSION OPERATIONS */
+
+.mission-operations {
+    margin-top: 25px;
+    padding-top: 15px;
+    border-top: 1px solid #334155;
+}
+
+.operations-tabs {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 5px;
+    margin-bottom: 20px;
+}
+
+.operations-tabs button {
+    flex: 1 1 auto;
+    font-size: 10px;
+}
+
+.operations-tabs button.active {
+    color: #22D3EE;
+    border-color: #22D3EE;
+    background: #12313E;
+}
+
+.mission-operations select,
+.mission-operations input[type="text"] {
+    width: 100%;
+    box-sizing: border-box;
+    padding: 12px;
+
+    background: #111B2E;
+    border: 1px solid #334155;
+    color: #F5F7FA;
+    border-radius: 6px;
+}
+
+.mission-operations input[type="range"] {
+    width: 100%;
+    accent-color: #22D3EE;
+}
+
+.mission-operations [hidden] {
+    display: none !important;
+}
+
+.ops-source {
+    color: #22D3EE;
+    font-size: 10px;
+    letter-spacing: 2px;
+}
+
+.ops-big-metric {
+    padding: 20px;
+    margin: 15px 0;
+
+    background: #111B2E;
+    border: 1px solid #334155;
+    border-radius: 10px;
+}
+
+.ops-big-metric small {
+    display: block;
+    color: #94A3B8;
+    font-size: 10px;
+    letter-spacing: 1px;
+}
+
+.ops-big-metric strong {
+    display: block;
+    margin-top: 10px;
+
+    color: #22D3EE;
+    font-family: monospace;
+    font-size: 34px;
+}
+
+.ops-resource-card,
+.ops-info {
+    padding: 14px;
+    margin: 12px 0;
+
+    background: #111B2E;
+    border: 1px solid #334155;
+    border-radius: 8px;
+}
+
+.ops-resource-card p,
+.ops-info p,
+#ops-travel-bar p {
+    font-size: 12px;
+    line-height: 1.6;
+    color: #94A3B8;
+}
+
+.ops-progress {
+    width: 100%;
+    height: 10px;
+    margin-top: 12px;
+
+    background: #273449;
+    border-radius: 5px;
+    overflow: hidden;
+}
+
+.ops-progress > div {
+    height: 100%;
+    transition: width 0.35s ease;
+}
+
+.ops-status {
+    padding: 12px;
+    margin-top: 12px;
+    line-height: 1.6;
+    font-size: 12px;
+}
+
+.ops-note {
+    font-size: 11px;
+    line-height: 1.7;
+    color: #94A3B8;
+}
+
+.ops-travel-bar {
+    display: flex;
+    height: 15px;
+    overflow: hidden;
+    border-radius: 6px;
+}
+
+.ops-check {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    gap: 12px;
+    padding: 12px 0;
+
+    font-size: 11px;
+    border-bottom: 1px solid #263348;
+}
+
+.ops-check strong {
+    font-size: 10px;
+}
+
+#mission-tabs {
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+}
